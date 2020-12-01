@@ -6,6 +6,10 @@ defmodule ReportRepairTest do
     assert 211899 = ReportRepair.product_of_2020(ints_from_file("input.txt"))
   end
 
+  test "puzzle 2" do
+    assert 275765682 = ReportRepair.triple_product_of_2020(ints_from_file("input.txt"))
+  end
+
   test "reads ints from file" do
     assert [1728, 1621 | _] = ints_from_file("input.txt")
   end
