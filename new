@@ -1,0 +1,22 @@
+#! /usr/bin/env bash
+
+name=$1
+
+if [ "$name" == "" ]; then
+    echo "Usage: $0 ModuleName"
+    exit 1
+fi
+
+day=$(date '+%e' | tr -d ' ')
+read -p "Date (default: $day): " other_day
+
+if [ "$other_day" != "" ]; then
+    day=$other_day
+fi
+
+dirname="$day-$name"
+mix new $dirname --app aoc --module $name
+
+echo "cd $dirname" | pbcopy
+
+echo "Next: run \`cd $dirname\`.  It's on the clipboard."
