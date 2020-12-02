@@ -18,29 +18,42 @@ defmodule PasswordPhilosophy do
   """
 
   @doc """
-  Count valid passwords in list.
+  Count valid passwords in list according to old rules.
 
   ## Examples
 
-      iex> PasswordPhilosophy.count_valid(["1-3 a: abcde", "1-3 b: cdefg", "2-9 c: ccccccccc"])
+      iex> PasswordPhilosophy.count_valid_old(["1-3 a: abcde", "1-3 b: cdefg", "2-9 c: ccccccccc"])
       2
   """
-  def count_valid(list) do
+  def count_valid_old(list) do
     list
-    |> Enum.count(&valid_password_entry?/1)
+    |> Enum.count(&valid_password_entry_old?/1)
   end
 
   @doc """
-  Check if password entry (line) is valid.
+  Count valid passwords in list according to new rules.
 
   ## Examples
 
-      iex> PasswordPhilosophy.valid_password_entry?("1-3 a: abcde")
+      iex> PasswordPhilosophy.count_valid_new(["1-3 a: abcde", "1-3 b: cdefg", "2-9 c: ccccccccc"])
+      1
+  """
+  def count_valid_new(list) do
+    list
+    |> Enum.count(&valid_password_entry_new?/1)
+  end
+
+  @doc """
+  Check if password entry (line) is valid according to old rules.
+
+  ## Examples
+
+      iex> PasswordPhilosophy.valid_password_entry_old?("1-3 a: abcde")
       true
-      iex> PasswordPhilosophy.valid_password_entry?("2-3 a: abcda")
+      iex> PasswordPhilosophy.valid_password_entry_old?("2-3 a: abcda")
       true
   """
-  def valid_password_entry?(string) do
+  def valid_password_entry_old?(string) do
     [_, min, max, letter, password] = Regex.run(~r/(\d+)-(\d+) (\w): (\w+)/, string)
 
     count =
@@ -50,5 +63,28 @@ defmodule PasswordPhilosophy do
 
     Range.new(String.to_integer(min), String.to_integer(max))
     |> Enum.member?(count)
+  end
+
+  @doc """
+  Check if password entry (line) is valid according to new rules.
+
+  ## Examples
+
+      iex> PasswordPhilosophy.valid_password_entry_new?("1-3 a: abcde")
+      true
+      iex> PasswordPhilosophy.valid_password_entry_new?("2-3 a: abcda")
+      false
+  """
+  def valid_password_entry_new?(string) do
+    [_, pos_1, pos_2, letter, password] = Regex.run(~r/(\d+)-(\d+) (\w): (\w+)/, string)
+
+    [pos_1, pos_2]
+    |> Enum.map(fn pos -> String.at(password, String.to_integer(pos) - 1) end)
+    |> case do
+      [^letter, ^letter] -> false
+      [^letter, _] -> true
+      [_, ^letter] -> true
+      _ -> false
+    end
   end
 end
