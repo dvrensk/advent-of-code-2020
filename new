@@ -17,6 +17,10 @@ fi
 dirname="$day-$name"
 mix new $dirname --app aoc --module $name
 
-echo "cd $dirname" | pbcopy
+cookie=$(cat .aoc_cookies)
+echo -n "Fetching input file..."
+curl -s -H "cookie: $cookie" https://adventofcode.com/2020/day/$day/input -o $dirname/input.txt
+echo " done."
 
+echo "cd $dirname" | pbcopy
 echo "Next: run \`cd $dirname\`.  It's on the clipboard."
