@@ -16,6 +16,7 @@ fi
 
 dirname="$day-$name"
 mix new $dirname --app aoc --module $name
+rm -f $dirname/README.md
 
 cookie=$(cat .aoc_cookies)
 echo -n "Fetching input file..."
