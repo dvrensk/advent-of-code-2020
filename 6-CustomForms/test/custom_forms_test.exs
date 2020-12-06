@@ -4,9 +4,16 @@ defmodule CustomFormsTest do
 
   test "puzzle 1: add the sizes" do
     input_paragraphs()
-    |> Enum.map(&CustomForms.yes_in_group/1)
+    |> Enum.map(&CustomForms.any_yes_in_group/1)
     |> Enum.reduce(0, fn e, acc -> acc + map_size(e) end)
     |> assert_eq(6542)
+  end
+
+  test "puzzle 2: add the sizes" do
+    input_paragraphs()
+    |> Enum.map(&CustomForms.all_yes_in_group/1)
+    |> Enum.reduce(0, fn e, acc -> acc + length(e) end)
+    |> assert_eq(3299)
   end
 
   def input_lines(path \\ "input.txt"),
