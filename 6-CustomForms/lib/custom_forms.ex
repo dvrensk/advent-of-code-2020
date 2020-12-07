@@ -1,4 +1,5 @@
 defmodule CustomForms do
+  @spec any_yes_in_group(String.t()) :: map
   @doc """
       iex> CustomForms.any_yes_in_group("ab\\nac")
       %{"a" => true, "b" => true, "c" => true}
@@ -9,6 +10,7 @@ defmodule CustomForms do
     |> Map.new()
   end
 
+  @spec all_yes_in_group(String.t()) :: [String.t()]
   @doc """
       iex> CustomForms.all_yes_in_group("ab\\nac")
       ["a"]
