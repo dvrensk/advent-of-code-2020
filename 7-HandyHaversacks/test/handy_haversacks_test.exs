@@ -8,6 +8,11 @@ defmodule HandyHaversacksTest do
     |> assert_eq(185)
   end
 
+  test "puzzle 2: how many bags are in my bag?" do
+    HandyHaversacks.number_of_bags_in("shiny gold", File.read!("input.txt"))
+    |> assert_eq(89084)
+  end
+
   def input_lines(path \\ "input.txt"),
     do: File.read!(path) |> String.split("\n", trim: true)
 

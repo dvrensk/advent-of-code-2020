@@ -1,6 +1,40 @@
 defmodule HandyHaversacks do
   @doc """
   iex> import HandyHaversacks
+  iex> number_of_bags_in("faded blue", sample_input())
+  0
+  iex> number_of_bags_in("shiny gold", sample_input())
+  32
+  """
+  def number_of_bags_in(bag_type, rules) do
+    direct = bags_visible_in(bag_type, rules)
+
+    indirect =
+      direct
+      |> Enum.map(fn {n, type} -> n * number_of_bags_in(type, rules) end)
+      |> Enum.sum()
+
+    indirect + (direct |> Enum.reduce(0, fn {n, _}, acc -> n + acc end))
+  end
+
+  @doc """
+  iex> import HandyHaversacks
+  iex> bags_visible_in("shiny gold", sample_input()) |> Enum.sort
+  [{1, "dark olive"}, {2, "vibrant plum"}]
+  iex> bags_visible_in("faded blue", sample_input())
+  []
+  """
+  def bags_visible_in(bag_type, rules) do
+    [rule] =
+      Regex.compile!("^#{bag_type} bags contain.*", [:multiline])
+      |> Regex.run(rules)
+
+    Regex.scan(~r/(\d+) (\w+ \w+)/, rule, capture: :all_but_first)
+    |> Enum.map(fn [n, type] -> {String.to_integer(n), type} end)
+  end
+
+  @doc """
+  iex> import HandyHaversacks
   iex> enclosures("shiny gold", sample_input()) |> Enum.sort
   ["bright white", "dark orange", "light red", "muted yellow"]
   """
