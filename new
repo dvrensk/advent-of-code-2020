@@ -23,5 +23,6 @@ echo -n "Fetching input file..."
 curl -s -H "cookie: $cookie" https://adventofcode.com/2020/day/$day/input -o $dirname/input.txt
 echo " done."
 
-echo "cd $dirname" | pbcopy
-echo "Next: run \`cd $dirname\`.  It's on the clipboard."
+cmd="code $dirname"
+echo -n $cmd | pbcopy
+echo "Next: run \`$cmd\`.  It's on the clipboard."
