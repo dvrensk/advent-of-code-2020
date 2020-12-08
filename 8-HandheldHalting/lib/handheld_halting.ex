@@ -5,38 +5,21 @@ defmodule HandheldHalting do
   iex> run_until_done(sample_input())
   {7, %{ip: 9, acc: 8}}
   """
-  def run_until_done(code) do
-    load_code(code)
-    |> run_until_done(0)
-  end
+  def run_until_done(code), do: load_code(code) |> run_until_done(0)
 
-  @spec run_until_done(:array.array(String.t()), non_neg_integer) ::
-          {non_neg_integer, %{acc: integer, ip: integer}}
+  @spec run_until_done(:array.array(String.t()), non_neg_integer) :: {non_neg_integer, %{acc: integer, ip: integer}}
   def run_until_done(code, change_here) do
     {changed_code, changed_pos} = change(code, change_here)
 
     run_until_loop_or_done(changed_code)
     |> case do
-      {:loop, _} -> run_until_done(code, changed_pos + 1)
       {:done, state} -> {changed_pos, state}
+      {:loop, _} -> run_until_done(code, changed_pos + 1)
     end
   end
 
-  @spec change(:array.array(String.t()), non_neg_integer) ::
-          {:array.array(String.t()), non_neg_integer}
-  def change(code, pos) do
-    case :array.get(pos, code) do
-      "nop " <> arg -> {:array.set(pos, "jmp " <> arg, code), pos}
-      "jmp " <> arg -> {:array.set(pos, "nop " <> arg, code), pos}
-      _ -> change(code, pos + 1)
-    end
-  end
-
-  @spec run_until_loop_or_done(
-          :array.array(String.t()),
-          %{acc: integer, ip: non_neg_integer},
-          MapSet.t(integer())
-        ) :: {:done, %{acc: integer, ip: integer}} | {:loop, %{acc: integer, ip: integer}}
+  @spec run_until_loop_or_done(:array.array(String.t()), %{acc: integer, ip: non_neg_integer}, MapSet.t(integer())) ::
+          {:done, %{acc: integer, ip: integer}} | {:loop, %{acc: integer, ip: integer}}
   def run_until_loop_or_done(code, state \\ %{ip: 0, acc: 0}, visited \\ MapSet.new()) do
     new_state = step(code, state)
 
@@ -44,6 +27,15 @@ defmodule HandheldHalting do
       MapSet.member?(visited, new_state[:ip]) -> {:loop, new_state}
       new_state[:ip] == :array.size(code) -> {:done, new_state}
       true -> run_until_loop_or_done(code, new_state, MapSet.put(visited, state[:ip]))
+    end
+  end
+
+  @spec change(:array.array(String.t()), non_neg_integer) :: {:array.array(String.t()), non_neg_integer}
+  def change(code, pos) do
+    case :array.get(pos, code) do
+      "nop " <> arg -> {:array.set(pos, "jmp " <> arg, code), pos}
+      "jmp " <> arg -> {:array.set(pos, "nop " <> arg, code), pos}
+      _ -> change(code, pos + 1)
     end
   end
 
