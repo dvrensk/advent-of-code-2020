@@ -9,6 +9,12 @@ defmodule HandheldHaltingTest do
     |> assert_eq(1200)
   end
 
+  test "puzzle 2: swap one to exit" do
+    input()
+    |> HandheldHalting.run_until_done()
+    |> assert_eq({327, %{acc: 1023, ip: 643}})
+  end
+
   def input(path \\ "input.txt"), do: File.read!(path)
   def input_lines(path \\ "input.txt"), do: input(path) |> String.split("\n", trim: true)
   def input_paragraphs(path \\ "input.txt"), do: input(path) |> String.split("\n\n", trim: true)
