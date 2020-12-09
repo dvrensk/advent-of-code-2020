@@ -64,6 +64,15 @@ instruction, which seemed like a very possible if unspecified option.)
 
 I'm tempted to hide the mutation in a lazy (`Stream`) producer and see if that makes the code look nicer.
 
+## Day 9: Sliding window over array
+
+This kind of task is not what comes most natural in Elixir, and that in itself provides a nice challenge.  I
+considered using Erlang's `queue` module to have something that naturally represents the sliding window, but
+decided against it after realising that the queue would have to be dumped into an array on every step.
+
+I'm still struggling to find a good balance between using function heads and `case` statements for flow control.
+I guess I always will.
+
 ## Note to self
 
 Start new solutions with `./new ModuleName`.
