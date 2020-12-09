@@ -5,7 +5,13 @@ defmodule EncodingErrorTest do
   test "puzzle 1: first encoding error" do
     input_ints()
     |> EncodingError.first_fail()
-    |> assert_eq(23278925)
+    |> assert_eq(23_278_925)
+  end
+
+  test "puzzle 2: first weakness" do
+    input_ints()
+    |> EncodingError.encryption_weakness()
+    |> assert_eq(4_011_064)
   end
 
   def input(path \\ "input.txt"), do: File.read!(path)

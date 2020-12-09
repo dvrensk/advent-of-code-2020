@@ -1,1 +1,0 @@
-../.formatting.exs

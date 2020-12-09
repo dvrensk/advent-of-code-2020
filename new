@@ -17,8 +17,8 @@ fi
 dirname="$day-$name"
 mix new $dirname --app aoc --module $name
 rm -f $dirname/README.md
-rm -f $dirname/.formatting.exs
-ln -s ../.formatting.exs $dirname/.formatting.exs
+rm -f $dirname/.formatter.exs
+ln -s ../.formatter.exs $dirname/.formatter.exs
 
 cookie=$(cat .aoc_cookies)
 echo -n "Fetching input file..."
