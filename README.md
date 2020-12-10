@@ -73,6 +73,14 @@ decided against it after realising that the queue would have to be dumped into a
 I'm still struggling to find a good balance between using function heads and `case` statements for flow control.
 I guess I always will.
 
+## Day 10: Path-finding & combinatorics
+
+My first reaction was to break out Erlang's `digraph`, but it only has functions for shortest path, not for a path
+that visits all nodes.  And thinking about the problem a bit made it clear that anything fancy like that would have
+been a waste of time and efforts.  In a way, this becomes like school maths problems where the challenge is to
+translate the text problem to a simple calculation, rather than my everyday work where the challenge is to model
+the environment, thereby creating entities which can be combined in interesting ways. 
+
 ## Note to self
 
 Start new solutions with `./new ModuleName`.
