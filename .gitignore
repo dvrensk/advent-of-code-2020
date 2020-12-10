@@ -1,2 +1,4 @@
 # Ignore private cookie store
 .aoc_cookies
+day.html
+samples.exs

@@ -25,6 +25,13 @@ echo -n "Fetching input file..."
 curl -s -H "cookie: $cookie" https://adventofcode.com/2020/day/$day/input -o $dirname/input.txt
 echo " done."
 
+echo -n "Fetching sample data..."
+curl -s -H "cookie: $cookie" https://adventofcode.com/2020/day/$day -o $dirname/day.html
+echo " done."
+ruby -e 'html = $stdin.read; html.scan(/<pre>[^<]*<code>([^<]*)/) {|c| puts %Q!def sample() do\n"""\n%s"""\nend! % c }' < $dirname/day.html > $dirname/samples.exs
+ruby -e 'html = $stdin.read; html.scan(/<pre>[^<]*<code>([^<]*)/) {|c,no| puts %Q!def sample() do\n  [%s]\nend! % c.split.join(",") }' < $dirname/day.html >> $dirname/samples.exs
+echo "You might want to copy the samples from $dirname/samples.exs to your code."
+
 cmd="code $dirname"
 echo -n $cmd | pbcopy
 echo "Next: run \`$cmd\`.  It's on the clipboard."
