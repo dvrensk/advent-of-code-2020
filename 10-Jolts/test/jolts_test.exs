@@ -8,6 +8,12 @@ defmodule JoltsTest do
     |> assert_eq(1984)
   end
 
+  test "puzzle 2: how many arrangements?" do
+    input_ints()
+    |> Jolts.count_arrangements()
+    |> assert_eq(3_543_369_523_456)
+  end
+
   def input(path \\ "input.txt"), do: File.read!(path)
   def input_lines(path \\ "input.txt"), do: input(path) |> String.split("\n", trim: true)
   def input_paragraphs(path \\ "input.txt"), do: input(path) |> String.split("\n\n", trim: true)

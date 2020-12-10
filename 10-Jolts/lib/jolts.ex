@@ -1,5 +1,35 @@
 defmodule Jolts do
   @doc """
+  iex> Jolts.count_arrangements(Jolts.sample(1))
+  8
+  iex> Jolts.count_arrangements(Jolts.sample(2))
+  19208
+  """
+  def count_arrangements(list) do
+    # The last gap is always 3, so we can ignore that, but the first is important.
+    [hi | list] = [0 | list] |> Enum.sort() |> Enum.reverse()
+    arrangements_from_here = %{hi => 1}
+    loop(list, arrangements_from_here)
+  end
+
+  @doc """
+  iex> Jolts.loop([], %{0 => 5})
+  5
+  iex> Jolts.loop([0], %{1 => 2, 2 => 3})
+  5
+  """
+  def loop([], arrangements_from_here), do: arrangements_from_here[0]
+
+  def loop([a | as], arrangements_from_here) do
+    from_a =
+      1..3
+      |> Enum.map(fn dist -> arrangements_from_here[a + dist] || 0 end)
+      |> Enum.sum()
+
+    loop(as, Map.put(arrangements_from_here, a, from_a))
+  end
+
+  @doc """
   iex> Jolts.jolt_diffs(Jolts.sample(1))
   35
   iex> Jolts.jolt_diffs(Jolts.sample(2))
