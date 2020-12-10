@@ -79,7 +79,10 @@ My first reaction was to break out Erlang's `digraph`, but it only has functions
 that visits all nodes.  And thinking about the problem a bit made it clear that anything fancy like that would have
 been a waste of time and efforts.  In a way, this becomes like school maths problems where the challenge is to
 translate the text problem to a simple calculation, rather than my everyday work where the challenge is to model
-the environment, thereby creating entities which can be combined in interesting ways. 
+the environment, thereby creating entities which can be combined in interesting ways.
+
+Also: the lack of something akin to Ruby's `Enumerable.each_cons` was pretty annoying.  Using `Enum.each_chunk` +
+`Enum.filter` works but does not reveal intent.
 
 ## Note to self
 
