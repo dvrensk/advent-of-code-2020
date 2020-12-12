@@ -1,10 +1,10 @@
-defmodule ManhattanTest do
+defmodule ManhattanV1Test do
   use ExUnit.Case
-  doctest Manhattan
+  doctest ManhattanV1
 
   test "puzzle 1" do
     input_lines()
-    |> Manhattan.run()
+    |> ManhattanV1.run()
     |> assert_eq(998)
   end
 

@@ -1,4 +1,4 @@
-defmodule Manhattan do
+defmodule ManhattanV1 do
   @moduledoc """
   The ship starts by facing east.
   Action N means to move north by the given value.
@@ -16,7 +16,7 @@ defmodule Manhattan do
   def new(), do: %__MODULE__{}
 
   @doc """
-  iex> Manhattan.run(Manhattan.sample())
+  iex> ManhattanV1.run(ManhattanV1.sample())
   25
   """
   def run(cmds) do
@@ -25,9 +25,9 @@ defmodule Manhattan do
   end
 
   @doc """
-  iex> import Manhattan
+  iex> import ManhattanV1
   iex> run(new(), sample())
-  %Manhattan{pos: {-8, 17}, heading: {-1, 0}}
+  %ManhattanV1{pos: {-8, 17}, heading: {-1, 0}}
   """
   def run(state, []), do: state
 
@@ -37,11 +37,11 @@ defmodule Manhattan do
   end
 
   @doc """
-  iex> import Manhattan
+  iex> import ManhattanV1
   iex> run1("F10", new())
-  %Manhattan{pos: {0, 10}, heading: {0, 1}}
+  %ManhattanV1{pos: {0, 10}, heading: {0, 1}}
   iex> run1("N10", new())
-  %Manhattan{pos: {10, 0}, heading: {0, 1}}
+  %ManhattanV1{pos: {10, 0}, heading: {0, 1}}
   """
   def run1(cmd, state = %{pos: {lat, lng}, heading: {dlat, dlng}}) do
     [ltr, val] = Regex.run(~r/(.)(\d+)/, cmd, capture: :all_but_first)
@@ -61,7 +61,7 @@ defmodule Manhattan do
   @headings [{0, 1}, {1, 0}, {0, -1}, {-1, 0}]
 
   @doc """
-  iex> import Manhattan
+  iex> import ManhattanV1
   iex> rotate({0,1}, 90)
   {1,0}
   iex> rotate({1,0}, 270)
@@ -74,7 +74,7 @@ defmodule Manhattan do
   end
 
   @doc """
-  iex> Manhattan.distance(%{pos: {-1, 4}})
+  iex> ManhattanV1.distance(%{pos: {-1, 4}})
   5
   """
   def distance(%{pos: {lat, lng}}) do
