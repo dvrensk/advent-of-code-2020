@@ -1,10 +1,10 @@
-defmodule SeatingTest do
+defmodule SeatingV1Test do
   use ExUnit.Case
-  doctest Seating
+  doctest SeatingV1
 
   test "puzzle 1: count the seated" do
     input()
-    |> Seating.count_occupied_in_final()
+    |> SeatingV1.count_occupied_in_final()
     |> assert_eq(2299)
   end
 

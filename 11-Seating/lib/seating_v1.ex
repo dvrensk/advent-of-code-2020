@@ -1,6 +1,6 @@
-defmodule Seating do
+defmodule SeatingV1 do
   @doc """
-  iex> Seating.count_occupied_in_final(Seating.sample(1))
+  iex> SeatingV1.count_occupied_in_final(SeatingV1.sample(1))
   37
   """
   def count_occupied_in_final(input) do
@@ -14,9 +14,9 @@ defmodule Seating do
   end
 
   @doc """
-  iex> seats = Seating.parse(Seating.sample(1))
-  iex> final = Seating.stabilise(seats)
-  iex> final == Seating.parse(Seating.sample(6))
+  iex> seats = SeatingV1.parse(SeatingV1.sample(1))
+  iex> final = SeatingV1.stabilise(seats)
+  iex> final == SeatingV1.parse(SeatingV1.sample(6))
   true
   """
   def stabilise(seats) do
@@ -27,14 +27,14 @@ defmodule Seating do
   end
 
   @doc """
-  iex> seats = Seating.parse(Seating.sample(1))
-  iex> next = Seating.next_gen(seats)
+  iex> seats = SeatingV1.parse(SeatingV1.sample(1))
+  iex> next = SeatingV1.next_gen(seats)
   iex> next[{0,0}]
   "#"
-  iex> next == Seating.parse(Seating.sample(2))
+  iex> next == SeatingV1.parse(SeatingV1.sample(2))
   true
-  iex> third = Seating.next_gen(next)
-  iex> third == Seating.parse(Seating.sample(3))
+  iex> third = SeatingV1.next_gen(next)
+  iex> third == SeatingV1.parse(SeatingV1.sample(3))
   true
   """
   def next_gen(seats) do
@@ -56,7 +56,7 @@ defmodule Seating do
   end
 
   @doc """
-  iex> seats = Seating.parse(Seating.sample(1))
+  iex> seats = SeatingV1.parse(SeatingV1.sample(1))
   iex> seats[{0,0}]
   "L"
   iex> seats[{2,1}]
