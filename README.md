@@ -84,6 +84,24 @@ the environment, thereby creating entities which can be combined in interesting 
 Also: the lack of something akin to Ruby's `Enumerable.each_cons` was pretty annoying.  Using `Enum.each_chunk` +
 `Enum.filter` works but does not reveal intent.
 
+## Day 11: Game of life, sort of
+
+How did the Constructor create seating plans that would lead to termination in not too many generations, for all
+participants?  I've participated in many code retreats, but I've never bothered to study Game of Life further. Now
+my interest is piqued.
+
+Also: an interesting meta-challenge to keep the solution to puzzle 1 around when parts of the specification changes
+(rather than getting added to).  I feel that I took the safe way out.
+
+## Day 12: Manhattan
+
+I did most of the 2019 edition and have peaked at the other years, and it seems like Manhattan distance is a
+recurring theme.  Perhaps because it makes for good puzzles that don't take all day to solve.  Anyway, the word
+"probably" in the instructions set off my spider-senses, but I decided not to design for what probably was to come
+since defensive programming makes for bad puzzle solutions.  It was interesting to see that the change from the
+first to the second puzzle required very small changes, and would have required even less if I had not written the
+first rotate function based on some vague memory of something similar last year.
+
 ## Note to self
 
 Start new solutions with `./new ModuleName`.
