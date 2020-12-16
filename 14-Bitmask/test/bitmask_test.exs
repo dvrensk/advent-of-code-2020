@@ -2,13 +2,13 @@ defmodule BitmaskTest do
   use ExUnit.Case
   doctest Bitmask
 
-  # test "puzzle 1" do
-  #   input()
-  #   |> Bitmask.run()
-  #   |> Map.values()
-  #   |> Enum.sum()
-  #   |> assert_eq(111)
-  # end
+  test "puzzle 1" do
+    input()
+    |> Bitmask.run()
+    |> Map.values()
+    |> Enum.sum()
+    |> assert_eq(17_934_269_678_453)
+  end
 
   def input(path \\ "input.txt"), do: File.read!(path)
   def input_lines(path \\ "input.txt"), do: input(path) |> String.split("\n", trim: true)

@@ -1,17 +1,29 @@
 defmodule Bitmask do
   import Bitwise
 
+  defstruct mem: %{}, ormask: 0, andmask: 0
+
   @doc """
   iex> Bitmask.run(Bitmask.sample)
   %{"8" => 64, "7" => 101}
   """
   def run(str) do
-    ["mask = " <> mask | cmds] = str |> String.split("\n", trim: true)
+    str
+    |> String.split("\n", trim: true)
+    |> run(%__MODULE__{})
+  end
+
+  def run([], %{mem: mem}), do: mem
+
+  def run(["mask = " <> mask | cmds], state) do
     {andmask, ormask} = masks(mask)
-    cmds
-    |> Enum.map(&Regex.run(~r/(\d+)] = (\d+)/, &1, capture: :all_but_first))
-    |> Enum.map(fn [pos, val] -> [pos, val |> String.to_integer |> bor(ormask) |> band(andmask)] end)
-    |> Enum.reduce(%{}, fn [pos, val], mem -> Map.put(mem, pos, val) end)
+    run(cmds, %{state | andmask: andmask, ormask: ormask})
+  end
+
+  def run([cmd | cmds], %{mem: mem, ormask: ormask, andmask: andmask} = state) do
+    [pos, val] = Regex.run(~r/(\d+)] = (\d+)/, cmd, capture: :all_but_first)
+    val = val |> String.to_integer() |> bor(ormask) |> band(andmask)
+    run(cmds, %{state | mem: Map.put(mem, pos, val)})
   end
 
   @doc """
