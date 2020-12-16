@@ -8,9 +8,12 @@ defmodule Shuttle do
   1789,37,47,1889 first occurs at timestamp 1,202,161,486.
 
   [{17, 0}, {13, 2}, {19, 3}]
+  [{19, 3}, {17, 0}, {13, 2}]
   t = 17a - 0 = 13b - 2 = 19c - 3
 
   iex> Shuttle.cascade("17,x,13,19")
+  3417
+  iex> Shuttle.cascade("17,x,x,19")
   3417
   iex> Shuttle.cascade("1789,37,47,1889")
   1202161486
@@ -27,7 +30,7 @@ defmodule Shuttle do
     end)
     |> Enum.reject(&is_nil/1)
     |> Enum.sort()
-    |> Enum.reverse()
+    |> Enum.reverse() |> IO.inspect()
     |> find_t()
   end
 

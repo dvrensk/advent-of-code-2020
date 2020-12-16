@@ -1,21 +1,14 @@
-defmodule ShuttleTest do
+defmodule BitmaskTest do
   use ExUnit.Case
-  doctest Shuttle
+  doctest Bitmask
 
-  test "puzzle 1" do
-    input()
-    |> Shuttle.next()
-    |> assert_eq(1915)
-  end
-
-  @tag timeout: 120_000
-  @tag :skip
-  test "puzzle 2" do
-    input_lines()
-    |> Enum.at(1)
-    |> Shuttle.cascade()
-    |> assert_eq(1915)
-  end
+  # test "puzzle 1" do
+  #   input()
+  #   |> Bitmask.run()
+  #   |> Map.values()
+  #   |> Enum.sum()
+  #   |> assert_eq(111)
+  # end
 
   def input(path \\ "input.txt"), do: File.read!(path)
   def input_lines(path \\ "input.txt"), do: input(path) |> String.split("\n", trim: true)
